@@ -1,0 +1,30 @@
+$ sudo mysql -u root -p
+Enter password:
+
+MariaDB [none]> create database kamill;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [none]> use mysql;
+Database changed
+
+MariaDB [mysql]> SELECT host, user, password FROM user;
++-----------+-----------+-------------------------------------------+
+| host      | user      | password                                  |
++-----------+-----------+-------------------------------------------+
+| localhost | root      | *1EDA13FA4BF2370D3A403B531E495484DD40F5B3 |
++-----------+-----------+-------------------------------------------+
+3 rows in set (0.00 sec)
+
+MariaDB [mysql]> CREATE USER 'bespinlab'@'%' iDENTIFIED BY 'bespinlab';
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [mysql]> GRANT ALL PRIVILEGES ON kamill.* TO 'bespinlab'@'%' IDENTIFIED BY 'bespinlab';
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [mysql]> FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [mysql]> quit;
+Bye
+
+$
