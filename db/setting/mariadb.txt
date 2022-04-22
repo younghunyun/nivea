@@ -1,7 +1,7 @@
 $ sudo mysql -u root -p
 Enter password:
 
-MariaDB [none]> create database kamill;
+MariaDB [none]> create database nivea;
 Query OK, 1 row affected (0.00 sec)
 
 MariaDB [none]> use mysql;
@@ -15,10 +15,10 @@ MariaDB [mysql]> SELECT host, user, password FROM user;
 +-----------+-----------+-------------------------------------------+
 3 rows in set (0.00 sec)
 
-MariaDB [mysql]> CREATE USER 'bespinlab'@'%' iDENTIFIED BY 'bespinlab';
+MariaDB [mysql]> CREATE USER 'bespinlab'@'%' IDENTIFIED BY 'bespinlab';
 Query OK, 0 rows affected (0.00 sec)
 
-MariaDB [mysql]> GRANT ALL PRIVILEGES ON kamill.* TO 'bespinlab'@'%' IDENTIFIED BY 'bespinlab';
+MariaDB [mysql]> GRANT ALL PRIVILEGES ON nivea.* TO 'bespinlab'@'%' IDENTIFIED BY 'bespinlab';
 Query OK, 0 rows affected (0.00 sec)
 
 MariaDB [mysql]> FLUSH PRIVILEGES;
