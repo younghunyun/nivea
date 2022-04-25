@@ -11,7 +11,7 @@
 
 <h1>nivea Project</h1>
 <p>서버 현재 시간: ${serviceTime}</p>
-<a href="/celebs"><image src="/images/seoul-5168604.jpg"></a>
+<a href="/celeb/"><image src="/image/seoul-5168604.jpg"></a>
 
 </body>
 </html>

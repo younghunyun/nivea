@@ -1,4 +1,4 @@
-package kr.bepsinlab.nivea;
+package kr.bespinlab.nivea;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

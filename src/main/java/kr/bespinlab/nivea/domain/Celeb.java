@@ -1,10 +1,14 @@
-package kr.bepsinlab.nivea.domain;
+package kr.bespinlab.nivea.domain;
+
+import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
+@Data
 public class Celeb {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -15,7 +19,7 @@ public class Celeb {
 	private String    realName;
 	private String    realNameEn;
 	private String    gender;
-	private LocalDate birthDate;
+	private Date      birthDate;
 	private String    debutYear;
 	private String    country;
 	private String    countryEn;
@@ -24,6 +28,6 @@ public class Celeb {
 	private Float     height;
 	private Float     weight;
 	private String    company;
-	private LocalDateTime updated;
+	private Timestamp updated;
 
 }

@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS celebs(
   , country_en    VARCHAR(100)  NULL
   , state         VARCHAR(100)  NULL
   , city          VARCHAR(100)  NULL
-  , height        DECIMAL(5,2)  NULL
-  , weight        DECIMAL(5,2)  NULL
+  , height        FLOAT         NULL
+  , weight        FLOAT         NULL
   , company       VARCHAR(500)  NULL
   , updated       DATETIME      NOT NULL  DEFAULT NOW()
   , PRIMARY KEY(celeb_id)
