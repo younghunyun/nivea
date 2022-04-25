@@ -24,8 +24,8 @@
 			 ,updated
 		FROM celebs
 		<where>
-			<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(parameter.searchKeyword)">
-				AND stage_name LIKE CONCAT('%', #{parameter.searchKeyword}, '%')
+			<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(searchRequest.searchKeyword)">
+				AND stage_name LIKE CONCAT('%', #{searchRequest.searchKeyword}, '%')
 			</if>
 		</where>
 		ORDER BY stage_name ASC

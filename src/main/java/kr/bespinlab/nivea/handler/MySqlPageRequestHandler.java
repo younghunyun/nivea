@@ -16,9 +16,10 @@ import javax.servlet.http.HttpServletRequest;
  * 해당 값을 MySQLPageRequest 클래스로 저장하여 컨트롤러로 전달
  */
 @Slf4j
-public class MySQLPageRequestHandler implements HandlerMethodArgumentResolver {
+public class MySqlPageRequestHandler implements HandlerMethodArgumentResolver {
 
 	private static final String DEFAULT_PARAMETER_PAGE = "page";
+	private static final int DEFAULT_PAGE = 1;
 	private static final String DEFAULT_PARAMETER_SIZE = "size";
 	private static final int DEFAULT_SIZE = 5;
 
@@ -26,13 +27,13 @@ public class MySQLPageRequestHandler implements HandlerMethodArgumentResolver {
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 		HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
 
-		// 현재 페이지
-		int page = NumberUtils.toInt(request.getParameter(DEFAULT_PARAMETER_PAGE), 1);
+		// 조회할 페이지
+		int page = NumberUtils.toInt(request.getParameter(DEFAULT_PARAMETER_PAGE), DEFAULT_PAGE);
 
-		// 시작시점
+		// 페이지당 데이터 수
 		int offset = NumberUtils.toInt(request.getParameter(DEFAULT_PARAMETER_SIZE), DEFAULT_SIZE);
 
-		// 조회할 데이터 수
+		// 조회할 데이터 수 계산
 		int limit = (offset * page) - offset;
 
 		return new MySqlPageRequest(page, offset, limit, offset);

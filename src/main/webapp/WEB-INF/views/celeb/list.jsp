@@ -77,7 +77,7 @@
     <tbody>
 	<c:forEach var="celeb" items="${celebList}" varStatus="status">
 	<tr>
-	  <th scope="row">${status.count}</th>
+	  <th scope="row"><image src="/image/no_image.png" style="width: 32px; object-fit: cover;"></th>
 	  <td>${celeb.celebId}</a></td>
 	  <td>${celeb.celebCode}</td>
 	  <td>${celeb.stageName}</td>

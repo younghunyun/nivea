@@ -21,12 +21,6 @@ import javax.sql.DataSource;
 public class MybatisConfiguration {
 
 	@Bean
-	@ConfigurationProperties(prefix="spring.datasource")
-	public DataSource dataSource() {
-		return DataSourceBuilder.create().build();
-	}
-
-	@Bean
 	public SqlSessionFactory sqlSessionFactory(@Autowired DataSource dataSource, ApplicationContext applicationContext) throws Exception {
 		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
 		factoryBean.setDataSource(dataSource);

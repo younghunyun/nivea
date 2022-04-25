@@ -1,5 +1,6 @@
-package kr.bespinlab.nivea.handler;
+package kr.bespinlab.nivea.interceptor;
 
+import kr.bespinlab.nivea.handler.RequestHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 public class BaseHandlerInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-		//log.debug("preHandle | Request URI {}: ", request.getRequestURI());
+		log.debug("preHandle | Request URI {}: ", request.getRequestURI());
 		if (handler instanceof HandlerMethod) {
 			HandlerMethod handlerMethod = (HandlerMethod) handler;
 			log.info("handlerMethod: {}", handlerMethod);
@@ -33,10 +34,12 @@ public class BaseHandlerInterceptor implements HandlerInterceptor {
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-//		if (handler instanceof HandlerMethod) {
-//			if (modelAndView != null) {
+		log.debug("postHandle | Request URI {}: ", request.getRequestURI());
+		if (handler instanceof HandlerMethod) {
+			if (modelAndView != null) {
 //				modelAndView.addObject("menuTypes", MenuType.values());
-//			}
-//		}
+				//
+			}
+		}
 	}
 }
