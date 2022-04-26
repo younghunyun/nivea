@@ -7,12 +7,12 @@ import lombok.Data;
  * @param <T>
  */
 @Data
-public class CelebSearchParameter<T> {
+public class CelebPageParam<T> {
 	private MySqlPageRequest pageRequest;
-	private T searchRequest;
+	private T searchParam;
 
-	public CelebSearchParameter(MySqlPageRequest pageRequest, T searchRequest) {
+	public CelebPageParam(MySqlPageRequest pageRequest, T searchParam) {
 		this.pageRequest = pageRequest;
-		this.searchRequest = searchRequest;
+		this.searchParam = searchParam;
 	}
 }

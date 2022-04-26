@@ -26,3 +26,27 @@ INSERT INTO celebs(celeb_code, stage_name, stage_name_en, real_name, real_name_e
 'ACT', '권나라', '', '권아윤', '', 'F', '1991-03-13', '2012', '대한민국', 'South Korea', '경기도', '성남시', 172, NULL, 'A-MAN 프로젝트');
 INSERT INTO celebs(celeb_code, stage_name, stage_name_en, real_name, real_name_en, gender, birth_date, debut_year, country, country_en, state, city, height, weight, company) VALUES(
 'ACT', '오나라', '', '오나라', '', 'F', '1974-10-26', '1997', '대한민국', 'South Korea', '경기도', '하남시', 164, NULL, '매니지먼트 에이엠나인');
+INSERT INTO celebs(celeb_code, stage_name, stage_name_en, real_name, real_name_en, gender, birth_date, debut_year, country, country_en, state, city, height, weight, company) VALUES(
+'ACT', '김수현', '', '김수현', '', 'M', '1988-02-16', '2007', '대한민국', 'South Korea', '서울', '강남구', 180, 65, '골드메달리스트');
+INSERT INTO celebs(celeb_code, stage_name, stage_name_en, real_name, real_name_en, gender, birth_date, debut_year, country, country_en, state, city, height, weight, company) VALUES(
+'ACT', '김수현', '', '김수현', '', 'F', '1985-01-25', '2005', '대한민국', 'South Korea', '', '', 177, NULL, 'United Talent Agency');
+INSERT INTO celebs(celeb_code, stage_name, stage_name_en, real_name, real_name_en, gender, birth_date, debut_year, country, country_en, state, city, height, weight, company) VALUES(
+'SIN', '은지', 'Eunji', '홍은지', 'Hong Eunji', 'F', '1992-07-19', '2016', '대한민국', 'South Korea', '서울', '', 168, NULL, '브레이브 엔터테인먼트');
+INSERT INTO celebs(celeb_code, stage_name, stage_name_en, real_name, real_name_en, gender, birth_date, debut_year, country, country_en, state, city, height, weight, company) VALUES(
+'SIN', '민영', 'Minyoung', '김민영', 'Kim Minyeong', 'F', '1990-09-12', '2016', '대한민국', 'South Korea', '경기', '성남시', 165, NULL, '브레이브 엔터테인먼트');
+INSERT INTO celebs(celeb_code, stage_name, stage_name_en, real_name, real_name_en, gender, birth_date, debut_year, country, country_en, state, city, height, weight, company) VALUES(
+'SIN', '유정', 'Yujeong', '남유정', 'Nam Yujeong', 'F', '1991-05-02', '2016', '대한민국', 'South Korea', '서울', '', 163, NULL, '브레이브 엔터테인먼트');
+INSERT INTO celebs(celeb_code, stage_name, stage_name_en, real_name, real_name_en, gender, birth_date, debut_year, country, country_en, state, city, height, weight, company) VALUES(
+'SIN', '유나', 'Yuna', '이유나', 'Lee Yuna', 'F', '1993-04-06', '2016', '대한민국', 'South Korea', '서울', '', 164, NULL, '브레이브 엔터테인먼트');
+INSERT INTO celebs(celeb_code, stage_name, stage_name_en, real_name, real_name_en, gender, birth_date, debut_year, country, country_en, state, city, height, weight, company) VALUES(
+'ACT', '조승우', '', '조승우', '', 'M', '1980-03-28', '2000', '대한민국', 'South Korea', '서울', '강남구', 173.3, NULL, '굿맨스토리');
+INSERT INTO celebs(celeb_code, stage_name, stage_name_en, real_name, real_name_en, gender, birth_date, debut_year, country, country_en, state, city, height, weight, company) VALUES(
+'ACT', '배두나', '', '배두나', '', 'F', '1979-10-11', '1998', '대한민국', 'South Korea', '서울', '종로구', 170.5, NULL, '');
+INSERT INTO celebs(celeb_code, stage_name, stage_name_en, real_name, real_name_en, gender, birth_date, debut_year, country, country_en, state, city, height, weight, company) VALUES(
+'ACT', '유재명', '', '유재명', '', 'M', '1973-06-03', '1997', '대한민국', 'South Korea', '부산', '남구', 183, NULL, '에이스팩토리');
+INSERT INTO celebs(celeb_code, stage_name, stage_name_en, real_name, real_name_en, gender, birth_date, debut_year, country, country_en, state, city, height, weight, company) VALUES(
+'ACT', '이준혁', '', '이준혁', '', 'M', '1984-03-13', '2006', '대한민국', 'South Korea', '인천', '', 181, NULL, '에이스팩토리');
+INSERT INTO celebs(celeb_code, stage_name, stage_name_en, real_name, real_name_en, gender, birth_date, debut_year, country, country_en, state, city, height, weight, company) VALUES(
+'ACT', '신혜선', '', '신혜선', '', 'F', '1989-08-31', '2012', '대한민국', 'South Korea', '서울', '종로구', 173, NULL, '아이오케이 컴퍼니');
+INSERT INTO celebs(celeb_code, stage_name, stage_name_en, real_name, real_name_en, gender, birth_date, debut_year, country, country_en, state, city, height, weight, company) VALUES(
+'ACT', '이규형', '', '이규형', '', 'M', '1983-11-29', '2001', '대한민국', 'South Korea', '서울', '', 175, NULL, '에이스팩토리');

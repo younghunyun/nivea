@@ -1,7 +1,6 @@
 package kr.bespinlab.nivea.config;
 
 import kr.bespinlab.nivea.interceptor.BaseHandlerInterceptor;
-import kr.bespinlab.nivea.temp.CelebSearchRequestHandler;
 import kr.bespinlab.nivea.handler.MySqlPageRequestHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

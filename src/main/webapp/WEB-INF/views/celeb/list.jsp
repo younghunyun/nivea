@@ -33,6 +33,9 @@
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="#">셀럽</a>
+        </li>
+       <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
         </li>
         <li class="nav-item dropdown">
@@ -52,7 +55,7 @@
       </ul>
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn btn-outline-primary btn-sm" type="submit">Search</button>
       </form>
     </div>
   </div>
@@ -91,29 +94,51 @@
 	</c:forEach>
 	<c:if test="${fn:length(celebList) == 0}">
 	<tr>
-	  <td colspan="10">등록된 셀럽이 없습니다:)</td>
+	  <td colspan="10" style="text-align: center;">등록된 셀럽이 없습니다:)</td>
 	</tr>
 	</c:if>
     </tbody>
 </table>
 
+<%-- 페이지 네비게이션 영역 --%>
 <nav aria-label="Page navigation example">
   <ul class="pagination pagination justify-content-center">
-    <li class="page-item disabled">
-      <a class="page-link">Previous</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <%-- '이전' 페이지블럭 활성화/비활성화 --%>
+    <c:choose>
+    <c:when test="${pageNavParam.prevActive}">
     <li class="page-item">
-      <a class="page-link" href="#">Next</a>
+    </c:when>
+    <c:otherwise>
+    <li class="page-item disabled">
+    </c:otherwise>
+    </c:choose>
+      <a class="page-link" href="./list?page=${pageNavParam.startPage-1}&size=${pageNavParam.contentsPerPage}">이전</a>
+    </li>
+
+    <c:forEach var="i" begin="${pageNavParam.startPage}" end="${pageNavParam.endPage}">
+    <li class="page-item">
+        <a class="page-link" href="./list?page=${i}&size=${pageNavParam.contentsPerPage}">${i}</a>
+    </li>
+    </c:forEach>
+
+    <%-- '다음' 페이지블럭 활성화/비활성화 --%>
+    <c:choose>
+    <c:when test="${pageNavParam.nextActive}">
+    <li class="page-item">
+    </c:when>
+    <c:otherwise>
+    <li class="page-item disabled">
+    </c:otherwise>
+    </c:choose>
+      <a class="page-link" href="./list?page=${pageNavParam.endPage+1}&size=${pageNavParam.contentsPerPage}">다음</a>
     </li>
   </ul>
 </nav>
 
 <hr/>
 
-<div class="container">
+<%-- 페이지 네비게이션 영역 --%>
+<div class="container-fluid">
 <button type="button" class="btn btn-primary btn-sm float-end">신규등록</button>
 </div>
 

@@ -15,11 +15,12 @@
     <logger name="org.hibernate"><level value="ERROR" /></logger>
     <logger name="org.apache"><level value="ERROR" /></logger>
     <logger name="org.apache.http.impl.conn"><level value="ERROR" /></logger>
-<!--    <logger name="log4jdbc"><level value="ERROR" /></logger>-->
-    <logger name="log4jdbc"><level value="INFO" /></logger>
+    <logger name="log4jdbc"><level value="ERROR" /></logger>
+<!--    <logger name="log4jdbc"><level value="INFO" /></logger>-->
     <logger name="org.mybatis"><level value="ERROR" /></logger>
     <logger name="com.zaxxer"><level value="ERROR" /></logger>
-    <logger name="kr.bespinlab.demo.mvc.repository"><level value="ERROR" /></logger>
+    <logger name="org.jboss.logging"><level value="ERROR" /></logger>
+    <logger name="kr.bespinlab.nivea.repository"><level value="ERROR" /></logger>
 
     <!--  Query Loggers -->
     <logger name="jdbc" level="INFO" />

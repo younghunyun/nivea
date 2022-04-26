@@ -1,9 +1,8 @@
 package kr.bespinlab.nivea.service;
 
 import kr.bespinlab.nivea.domain.Celeb;
-import kr.bespinlab.nivea.temp.CelebSearchRequest000;
-import kr.bespinlab.nivea.parameter.CelebSearchRequest;
-import kr.bespinlab.nivea.parameter.CelebSearchParameter;
+import kr.bespinlab.nivea.parameter.CelebPageParam;
+import kr.bespinlab.nivea.parameter.CelebSearchParam;
 import kr.bespinlab.nivea.repository.CelebRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,8 +43,12 @@ public class CelebService {
 		return repository.findByRealName(realName);
 	}
 
-	public List<Celeb> search(CelebSearchParameter<CelebSearchRequest> celebSearchParameter) {
-		return repository.search(celebSearchParameter);
+	public List<Celeb> search(CelebPageParam<CelebSearchParam> celebPageParam) {
+		return repository.search(celebPageParam);
+	}
+
+	public int count(CelebSearchParam celebSearchParam) {
+		return repository.count(celebSearchParam);
 	}
 
 }

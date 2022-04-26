@@ -3,7 +3,7 @@
 
 <mapper namespace="kr.bespinlab.nivea.repository.CelebRepository">
 
-	<select id="search" parameterType="kr.bespinlab.nivea.parameter.CelebSearchParameter" resultType="kr.bespinlab.nivea.domain.Celeb">
+	<select id="search" parameterType="kr.bespinlab.nivea.parameter.CelebPageParam" resultType="kr.bespinlab.nivea.domain.Celeb">
 		SELECT
 			celeb_id
 			, celeb_code
@@ -24,12 +24,22 @@
 			 ,updated
 		FROM celebs
 		<where>
-			<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(searchRequest.searchKeyword)">
-				AND stage_name LIKE CONCAT('%', #{searchRequest.searchKeyword}, '%')
+			<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(searchParam.keyword)">
+				AND stage_name LIKE CONCAT('%', #{searchParam.keyword}, '%')
 			</if>
 		</where>
 		ORDER BY stage_name ASC
 		LIMIT #{pageRequest.limit}, #{pageRequest.offset}
 	</select>
 
+	<select id="count" parameterType="kr.bespinlab.nivea.parameter.CelebSearchParam" resultType="int">
+		SELECT
+			COUNT(celeb_id) AS count
+		FROM celebs
+		<where>
+			<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(keyword)">
+				AND stage_name LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>
+	</select>
 </mapper>

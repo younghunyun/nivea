@@ -1,8 +1,8 @@
 package kr.bespinlab.nivea.repository;
 
 import kr.bespinlab.nivea.domain.Celeb;
-import kr.bespinlab.nivea.parameter.CelebSearchRequest;
-import kr.bespinlab.nivea.parameter.CelebSearchParameter;
+import kr.bespinlab.nivea.parameter.CelebSearchParam;
+import kr.bespinlab.nivea.parameter.CelebPageParam;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,5 +15,6 @@ public interface CelebRepository {
 	Optional<Celeb> findByStageName(String stageName);
 	Optional<Celeb> findByRealName(String realName);
 	Optional<Celeb> findByName(String stageName, String realName);
-	List<Celeb> search(CelebSearchParameter<CelebSearchRequest> celebSearchParameter);
+	List<Celeb> search(CelebPageParam<CelebSearchParam> celebPageParam);
+	int count(CelebSearchParam searchParam);
 }
