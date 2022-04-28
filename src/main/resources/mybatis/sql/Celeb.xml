@@ -3,9 +3,45 @@
 
 <mapper namespace="kr.bespinlab.nivea.repository.CelebRepository">
 
+	<insert id="save" parameterType="kr.bespinlab.nivea.parameter.CelebUpdateParam" useGeneratedKeys="true" keyProperty="celebSeq">
+		INSERT INTO celebs(
+			celeb_code
+			, stage_name
+			, stage_name_en
+			, real_name
+			, real_name_en
+			, gender
+			, birth_date
+			, debut_year
+			, country
+			, country_en
+			, state
+			, city
+			, height
+			, weight
+			, company
+		) VALUES(
+			#{celebCode}
+			, #{stageName}
+			, #{stageNameEn}
+			, #{realName}
+			, #{realNameEn}
+			, #{gender}
+			, #{birthDate}
+			, #{debutYear}
+			, #{country}
+			, #{countryEn}
+			, #{state}
+			, #{city}
+			, #{height}
+			, #{weight}
+			, #{company}
+		)
+	</insert>
+
 	<select id="search" parameterType="kr.bespinlab.nivea.parameter.CelebPageParam" resultType="kr.bespinlab.nivea.domain.Celeb">
 		SELECT
-			celeb_id
+			celeb_seq
 			, celeb_code
 			, stage_name
 			, stage_name_en
@@ -34,7 +70,7 @@
 
 	<select id="count" parameterType="kr.bespinlab.nivea.parameter.CelebSearchParam" resultType="int">
 		SELECT
-			COUNT(celeb_id) AS count
+			COUNT(celeb_seq) AS count
 		FROM celebs
 		<where>
 			<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(keyword)">

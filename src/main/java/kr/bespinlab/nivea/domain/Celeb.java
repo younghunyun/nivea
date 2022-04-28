@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class Celeb {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int       celebId;
+	private int       celebSeq;
 	private String    celebCode;
 	private String    stageName;
 	private String    stageNameEn;

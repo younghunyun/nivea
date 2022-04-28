@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS celebs(
-    celeb_id      INT           NOT NULL AUTO_INCREMENT
+    celeb_seq     INT           NOT NULL AUTO_INCREMENT
   , celeb_code    CHAR(3)       NOT NULL
   , stage_name    VARCHAR(100)  NOT NULL
   , stage_name_en VARCHAR(100)  NULL
@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS celebs(
   , height        FLOAT         NULL
   , weight        FLOAT         NULL
   , company       VARCHAR(500)  NULL
-  , updated       DATETIME      NOT NULL  DEFAULT NOW()
-  , PRIMARY KEY(celeb_id)
-  , UNIQUE INDEX uindex_celeb_uid (celeb_code, celeb_id)
+  , updated       DATETIME      NOT NULL DEFAULT NOW()
+  , PRIMARY KEY(celeb_seq)
+  , UNIQUE INDEX uindex_celeb_uid (celeb_code, celeb_seq)
 )
 CHARSET=utf8;

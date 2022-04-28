@@ -10,7 +10,9 @@ import lombok.Data;
 @Data
 public class MySqlPageRequest {
 
+	@ApiModelProperty(name = "page", value = "조회 대상 페이지", dataType = "int", required = true, example = "1")
 	private int page;
+	@ApiModelProperty(name = "size", value = "페이지 내 데이터 수", dataType = "int", required = true, example = "10")
 	private int size;
 
 	@JsonIgnore
