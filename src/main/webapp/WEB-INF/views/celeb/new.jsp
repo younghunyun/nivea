@@ -28,22 +28,22 @@
         <div class="row">
           <div class="col mx-2 mb-3">
             <label for="stageName" class="form-label">활동이름*</label>
-            <input type="text" class="form-control" id="stageName" name="stageName" placeholder="김이박" value="김서울">
+            <input type="text" class="form-control" id="stageName" name="stageName" placeholder="김이박">
           </div>
           <div class="col mx-2 mb-3">
             <label for="stageNameEn" class="form-label">활동이름(영문)</label>
-            <input type="text" class="form-control" id="stageNameEn" name="stageNameEn" placeholder="Leepark Kim" value="Seoul Kim">
+            <input type="text" class="form-control" id="stageNameEn" name="stageNameEn" placeholder="Leepark Kim">
           </div>
         </div>
 
         <div class="row">
           <div class="col mx-2 mb-3">
             <label for="realName" class="form-label">실제이름</label>
-            <input type="text" class="form-control" id="realName" name="realName" placeholder="김이박" value="김한양">
+            <input type="text" class="form-control" id="realName" name="realName" placeholder="김이박">
           </div>
           <div class="col mx-2 mb-3">
             <label for="realNameEn" class="form-label">실제이름(영문)</label>
-            <input type="text" class="form-control" id="realNameEn" name="realNameEn" placeholder="Leepark Kim" value="Hanyang Kim">
+            <input type="text" class="form-control" id="realNameEn" name="realNameEn" placeholder="Leepark Kim">
           </div>
         </div>
 
@@ -72,12 +72,12 @@
             <label for="birthDate" class="form-label">생년월일</label>
             <div class="input-group" data-provide="birthDate">
               <i class="bi bi-calendar-date mx-2" style="font-size: 1.6rem;"></i>
-              <input type="text" class="form-control datePicker" id="birthDate" name="birthDate" value="1394-10-01" readonly>
+              <input type="text" class="form-control datePicker" id="birthDate" name="birthDate" readonly>
             </div>
           </div>
           <div class="col mx-2 mb-3">
             <label for="debutYear" class="form-label">데뷔년도</label>
-            <input type="number" class="form-control" id="debutYear" name="debutYear" min='1900' max='2040' step='1' placeholder="1983" value="1394">
+            <input type="number" class="form-control" id="debutYear" name="debutYear" min='1900' max='2040' step='1' placeholder="1983">
           </div>
         </div>
 
@@ -95,29 +95,29 @@
         <div class="row">
           <div class="col mx-2 mb-3">
             <label for="state" class="form-label">시/도</label>
-            <input type="text" class="form-control" id="state" name="state" placeholder="서울" value="서울">
+            <input type="text" class="form-control" id="state" name="state" placeholder="서울">
           </div>
           <div class="col mx-2 mb-3">
             <label for="city" class="form-label">시/군/구</label>
-            <input type="text" class="form-control" id="city" name="city" placeholder="송파구" value="">
+            <input type="text" class="form-control" id="city" name="city" placeholder="송파구">
           </div>
         </div>
 
         <div class="row">
           <div class="col mx-2 mb-3">
             <label for="height" class="form-label">키</label>
-            <input type="number" class="form-control" id="height" name="height" min='100' max='300' step='0.01' placeholder="177.6" value="180.02">
+            <input type="number" class="form-control" id="height" name="height" min='100' max='300' step='0.01' placeholder="177.6">
           </div>
           <div class="col mx-2 mb-3">
             <label for="weight" class="form-label">무게</label>
-            <input type="number" class="form-control" id="weight" name="weight" min='50' max='250' step='0.01' placeholder="77.6" value="80.01">
+            <input type="number" class="form-control" id="weight" name="weight" min='50' max='250' step='0.01' placeholder="77.6">
           </div>
         </div>
 
         <div class="row">
           <div class="col mx-2 mb-3">
             <label for="company" class="form-label">소속사</label>
-            <input type="text" class="form-control" id="company" name="company" placeholder="니베아 엔터테인먼트" value="니베아 엔터테인먼트">
+            <input type="text" class="form-control" id="company" name="company" placeholder="니베아 엔터테인먼트">
           </div>
         </div>
 
@@ -182,6 +182,8 @@ $('#formNewCeleb').on('click', '#registerCeleb', function() {
       }
   });
 
-  return false;
+  alert('formNewCeleb.click');
+
+  //return false;
 });
 </script>

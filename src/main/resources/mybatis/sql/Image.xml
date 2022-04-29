@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.bespinlab.nivea.repository.ImageRepository">
+
+	<insert id="save" parameterType="kr.bespinlab.nivea.parameter.ImageUpdateParam" useGeneratedKeys="true" keyProperty="fileSeq">
+		INSERT INTO images(
+			ref_id
+			, original_filename
+			, upload_filename
+			, upload_path_filename
+			, resource_path_filename
+			, size_byte
+			, content_type
+		) VALUES(
+			#{refId}
+			,#{originalFilename}
+			,#{uploadFilename}
+			,#{uploadPathFilename}
+			,#{resourcePathFilename}
+			,#{sizeByte}
+			,#{contentType}
+		)
+	</insert>
+
+	<select id="getList" parameterType="String" resultType="kr.bespinlab.nivea.domain.Image">
+		SELECT
+			file_seq
+			, ref_id
+			, original_filename
+			, upload_filename
+			, upload_path_filename
+			, resource_path_filename
+			, size_byte
+			, content_type
+			, del_yn
+			, updated
+		FROM images
+		<where>
+			<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(refId)">
+				AND ref_id = #{searchParam.refId}
+			</if>
+		</where>
+		ORDER BY updated DESC
+	</select>
+</mapper>

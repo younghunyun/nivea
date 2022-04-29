@@ -20,9 +20,10 @@ public class PropertyConfiguration {
     @Autowired
     private ResourceLoader resourceLoader;
 
-    private String uploadFilePath;
+    private String uploadServerPath;
     private String uploadResourcePath;
     private String uploadFilePrefix;
+
     private String schedulerLogMsg;
 
     private boolean local;
@@ -45,7 +46,7 @@ public class PropertyConfiguration {
         try {
             Resource resource = resourceLoader.getResource(resourcePath);
             Properties properties = PropertiesLoaderUtils.loadProperties(resource);
-            this.uploadFilePath = properties.getProperty("uploadFile.path");
+            this.uploadServerPath = properties.getProperty("uploadFile.serverPath");
             this.uploadResourcePath = properties.getProperty("uploadFile.resourcePath");
             this.uploadFilePrefix = properties.getProperty("uploadFile.prefix");
             this.schedulerLogMsg = properties.getProperty("scheduler.cron.logMsg");
@@ -58,8 +59,8 @@ public class PropertyConfiguration {
         }
     }
 
-    public String getUploadFilePath() {
-        return uploadFilePath;
+    public String getUploadServerPath() {
+        return uploadServerPath;
     }
 
     public String getUploadResourcePath() {

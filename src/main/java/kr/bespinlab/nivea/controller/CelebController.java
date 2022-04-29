@@ -25,6 +25,11 @@ public class CelebController {
 	@Autowired
 	private CelebService celebService;
 
+	@GetMapping("/test")
+	public String test() {
+		return "/celeb/test";
+	}
+
 	@ApiOperation(value = "셀럽 등록", notes = "셀럽 신규 등록")
 	@PostMapping("/register/json")
 	@ResponseBody
