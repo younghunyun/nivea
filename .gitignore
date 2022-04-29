@@ -5,6 +5,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+# 업로드 이미지 파일 폴더
+data/
+
 ### STS ###
 .apt_generated
 .classpath
