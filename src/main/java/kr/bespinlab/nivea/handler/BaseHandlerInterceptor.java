@@ -1,4 +1,4 @@
-package kr.bespinlab.nivea.interceptor;
+package kr.bespinlab.nivea.handler;
 
 import kr.bespinlab.nivea.handler.RequestHandler;
 import lombok.extern.slf4j.Slf4j;

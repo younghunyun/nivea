@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import kr.bespinlab.nivea.comm.BaseCodeLabelEnum;
 import kr.bespinlab.nivea.comm.BaseCodeLabelEnumJsonSerializer;
-import kr.bespinlab.nivea.interceptor.BaseHandlerInterceptor;
+import kr.bespinlab.nivea.handler.BaseHandlerInterceptor;
 import kr.bespinlab.nivea.handler.MySqlPageRequestHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
