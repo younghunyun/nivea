@@ -36,7 +36,7 @@ public class CelebController {
 	public BaseResponse<Integer> register(CelebUpdateParam param) {
 		log.debug(">>>> CelebController | register | CelebUpdateParam: {}", param);
 
-		// 셀럼코드 유무 체크
+		// 셀럽코드 유무 체크
 		if (param.getCelebCode() == null || param.getCelebCode().isEmpty()) {
 			throw new BaseException(BaseResponseCode.NO_REQUIRED_PARAM, new String[]{"celebCode", "셀럽코드"});
 		}
@@ -56,6 +56,7 @@ public class CelebController {
 		if (updatedRows != 1) {
 			throw new BaseException(BaseResponseCode.FAIL);
 		} else {
+			log.debug(">>>> CelebController | register | Completed, celebSeq: {}", param.getCelebSeq());
 			return new BaseResponse<>(param.getCelebSeq());
 		}
 	}
@@ -68,6 +69,7 @@ public class CelebController {
 		int totalContents = countJson(searchParam);
 		MySqlPageNavParam pageNavParam = new MySqlPageNavParam(pageRequest.getPage(), pageRequest.getSize(), totalContents);
 		model.addAttribute("pageNavParam", pageNavParam);
+		model.addAttribute("searchParam", searchParam);
 		return "/celeb/list";
 	}
 
@@ -91,6 +93,42 @@ public class CelebController {
 
 		int totalContents = celebService.count(celebSearchParam);
 		return totalContents;
+	}
+
+	@ApiOperation(value = "셀럽 변경", notes = "셀럽정보 업데이트")
+	@PostMapping("/update/json")
+	@ResponseBody
+	public BaseResponse<Integer> update(CelebUpdateParam param) {
+		log.debug(">>>> CelebController | update | CelebUpdateParam: {}", param);
+
+		int updatedRows = 0;
+		try {
+			updatedRows = celebService.update(param);
+		} catch (Exception e){
+			throw new BaseException(BaseResponseCode.FAIL, new String[]{e.getMessage()});
+		}
+
+		if (updatedRows != 1) {
+			throw new BaseException(BaseResponseCode.FAIL);
+		} else {
+			log.debug(">>>> CelebController | update | Completed, celebSeq: {}", param.getCelebSeq());
+			return new BaseResponse<>(param.getCelebSeq());
+		}
+	}
+
+	@DeleteMapping("/delete/{celebSeq}")
+	@ResponseBody
+	public BaseResponse<Boolean> delete(@PathVariable("celebSeq") int celebSeq){
+		log.debug(">>>> CelebController | delete | celebSeq: {}", celebSeq);
+
+		try {
+			celebService.delete(celebSeq);
+			return new BaseResponse<Boolean>(true);
+
+		} catch (Exception e){
+			throw new BaseException(BaseResponseCode.FAIL, new String[]{e.getMessage()});
+
+		}
 	}
 
 }

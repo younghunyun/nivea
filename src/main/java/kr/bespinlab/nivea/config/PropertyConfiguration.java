@@ -24,6 +24,8 @@ public class PropertyConfiguration {
     private String uploadResourcePath;
     private String uploadFilePrefix;
 
+    private String thumbnailFileEnabled;
+
     private String schedulerLogMsg;
 
     private boolean local;
@@ -49,6 +51,7 @@ public class PropertyConfiguration {
             this.uploadServerPath = properties.getProperty("uploadFile.serverPath");
             this.uploadResourcePath = properties.getProperty("uploadFile.resourcePath");
             this.uploadFilePrefix = properties.getProperty("uploadFile.prefix");
+            this.thumbnailFileEnabled = properties.getProperty("thumbnailFile.enabled");
             this.schedulerLogMsg = properties.getProperty("scheduler.cron.logMsg");
 
             this.local = activeProfile.equals("local");
@@ -73,6 +76,10 @@ public class PropertyConfiguration {
 
     public String getSchedulerLogMsg() {
         return schedulerLogMsg;
+    }
+
+    public String getThumbnailFileEnabled() {
+        return thumbnailFileEnabled;
     }
 
     public boolean isLocal() {

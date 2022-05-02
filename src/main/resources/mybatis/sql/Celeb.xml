@@ -5,61 +5,63 @@
 
 	<insert id="save" parameterType="kr.bespinlab.nivea.parameter.CelebUpdateParam" useGeneratedKeys="true" keyProperty="celebSeq">
 		INSERT INTO celebs(
-			celeb_code
-			, stage_name
-			, stage_name_en
-			, real_name
-			, real_name_en
-			, gender
-			, birth_date
-			, debut_year
-			, country
-			, country_en
-			, state
-			, city
-			, height
-			, weight
-			, company
+		celeb_code
+		, stage_name
+		, stage_name_en
+		, real_name
+		, real_name_en
+		, gender
+		, birth_date
+		, debut_year
+		, country
+		, country_en
+		, state
+		, city
+		, height
+		, weight
+		, company
 		) VALUES(
-			#{celebCode}
-			, #{stageName}
-			, #{stageNameEn}
-			, #{realName}
-			, #{realNameEn}
-			, #{gender}
-			, #{birthDate}
-			, #{debutYear}
-			, #{country}
-			, #{countryEn}
-			, #{state}
-			, #{city}
-			, #{height}
-			, #{weight}
-			, #{company}
+		#{celebCode}
+		, #{stageName}
+		, #{stageNameEn}
+		, #{realName}
+		, #{realNameEn}
+		, #{gender}
+		, #{birthDate}
+		, #{debutYear}
+		, #{country}
+		, #{countryEn}
+		, #{state}
+		, #{city}
+		, #{height}
+		, #{weight}
+		, #{company}
 		)
 	</insert>
 
 	<select id="search" parameterType="kr.bespinlab.nivea.parameter.CelebPageParam" resultType="kr.bespinlab.nivea.domain.Celeb">
 		SELECT
-			celeb_seq
-			, celeb_code
-			, stage_name
-			, stage_name_en
-			, real_name
-			, real_name_en
-			, gender
-			, birth_date
-			, debut_year
-			, country
-			, country_en
-			, state
-			, city
-			, height
-			, weight
-			, company
-			 ,updated
+		celeb_seq
+		, celeb_code
+		, stage_name
+		, stage_name_en
+		, real_name
+		, real_name_en
+		, gender
+		, birth_date
+		, debut_year
+		, country
+		, country_en
+		, state
+		, city
+		, height
+		, weight
+		, company
+		, del_yn
+		,updated
 		FROM celebs
 		<where>
+			AND del_yn = 'N'
 			<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(searchParam.keyword)">
 				AND stage_name LIKE CONCAT('%', #{searchParam.keyword}, '%')
 			</if>
@@ -70,12 +72,40 @@
 
 	<select id="count" parameterType="kr.bespinlab.nivea.parameter.CelebSearchParam" resultType="int">
 		SELECT
-			COUNT(celeb_seq) AS count
+		COUNT(celeb_seq) AS count
 		FROM celebs
 		<where>
+			AND del_yn = 'N'
 			<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(keyword)">
 				AND stage_name LIKE CONCAT('%', #{keyword}, '%')
 			</if>
 		</where>
 	</select>
+
+	<update id="update" parameterType="kr.bespinlab.nivea.parameter.CelebUpdateParam" keyProperty="celebSeq">
+		UPDATE celebs SET
+			celeb_code      = #{celebCode}
+			, stage_name    = #{stageName}
+			, stage_name_en = #{stageNameEn}
+			, real_name     = #{realName}
+			, real_name_en  = #{realNameEn}
+			, gender        = #{gender}
+			, birth_date    = #{birthDate}
+			, debut_year    = #{debutYear}
+			, country       = #{country}
+			, country_en    = #{countryEn}
+			, state         = #{state}
+			, city          = #{city}
+			, height        = #{height}
+			, weight        = #{weight}
+			, company       = #{company}
+		WHERE celeb_seq = #{celebSeq}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		UPDATE celebs SET
+		del_yn = 'Y'
+		WHERE celeb_seq = #{celeb_seq}
+	</delete>
+
 </mapper>

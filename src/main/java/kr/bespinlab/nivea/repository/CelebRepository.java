@@ -12,10 +12,13 @@ import java.util.Optional;
 @Repository
 public interface CelebRepository {
 	int save(CelebUpdateParam param);
+	List<Celeb> search(CelebPageParam<CelebSearchParam> celebPageParam);
+	int count(CelebSearchParam searchParam);
 	Optional<Celeb> findBySeq(int celebSeq);
 	Optional<Celeb> findByStageName(String stageName);
 	Optional<Celeb> findByRealName(String realName);
 	Optional<Celeb> findByName(String stageName, String realName);
-	List<Celeb> search(CelebPageParam<CelebSearchParam> celebPageParam);
-	int count(CelebSearchParam searchParam);
+	int update(CelebUpdateParam param);
+	void delete(int celebSeq);
+
 }

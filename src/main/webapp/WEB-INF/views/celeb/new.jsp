@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<!-- Modal: 신규 셀럽 등록 -->
+<!-- Modal: 신규등록 -->
 <div class="modal fade" id="modalNewCeleb" data-bs-backdrop="static" tabindex="-1" aria-labelledby="modalLabelNewCeleb" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -72,7 +72,7 @@
             <label for="birthDate" class="form-label">생년월일</label>
             <div class="input-group" data-provide="birthDate">
               <i class="bi bi-calendar-date mx-2" style="font-size: 1.6rem;"></i>
-              <input type="text" class="form-control datePicker" id="birthDate" name="birthDate" readonly>
+              <input type="date" class="form-control datePicker" id="birthDate" name="birthDate" value="" readonly>
             </div>
           </div>
           <div class="col mx-2 mb-3">
@@ -128,12 +128,13 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
       </div>
 
-      </form>
+      </form>  <!-- form id="formNewCeleb" -->
 
     </div>
   </div>
 </div>
 
+<!-- Script: datePicker 초기설정 -->
 <script type="text/javascript">
 var datePickerDefaults = {
   format: "yyyy-mm-dd",                           //데이터 형식(yyyy: 년, mm: 월, dd: 일)
@@ -158,12 +159,16 @@ var datePickerDefaults = {
   weekStart: 0,                                   //달력 시작 요일. 기본값: 0 일요일
   language: 'ko'                                  //언어 선택. 선택한 언어ㅔ 맞는 js로 변경 필요
 };
+</script>
 
+<!-- Script: Modal-신규등록 초기설정 -->
+<script type="text/javascript">
 $('#formNewCeleb #birthDate').datepicker(datePickerDefaults);
 
 $('#formNewCeleb').on('click', '#registerCeleb', function() {
   var stageName = document.getElementById('formNewCeleb').querySelector('.modal-body input#stageName').value;
   var $form = $('#formNewCeleb');
+  //console.log($form.serialize());
 
   $.ajax({
       url: '/celeb/register/json',
@@ -174,15 +179,13 @@ $('#formNewCeleb').on('click', '#registerCeleb', function() {
           console.log(response);
 
           if (response.code == 'SUCCESS') {
-            alert('등록되었습니다:)');
+            alert('신규등록 완료:)');
             location.href = '/celeb/list?keyword='+stageName;
           } else {
               alert(response.message);
           }
       }
   });
-
-  alert('formNewCeleb.click');
 
   //return false;
 });

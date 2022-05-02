@@ -1,6 +1,7 @@
 package kr.bespinlab.nivea.domain;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -19,7 +20,9 @@ public class Celeb {
 	private String    realName;
 	private String    realNameEn;
 	private String    gender;
-	private Date      birthDate;
+//	@DateTimeFormat(pattern = "yyyy-MM-dd")
+//	private Date      birthDate;
+	private String    birthDate;
 	private String    debutYear;
 	private String    country;
 	private String    countryEn;
@@ -28,6 +31,7 @@ public class Celeb {
 	private Float     height;
 	private Float     weight;
 	private String    company;
+	private String    delYn;
 	private Timestamp updated;
 
 }

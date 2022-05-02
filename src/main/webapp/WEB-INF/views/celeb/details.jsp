@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<!-- Modal: 셀럽 상세정보 -->
+<!-- Modal: 상세정보 -->
 <div class="modal fade" id="modalCelebDetails" tabindex="-1" aria-labelledby="modalLabelCelebDetails" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -20,10 +20,10 @@
           </div>
           <div class="col mx-2 mb-3">
             <label for="celebCode" class="form-label">셀럽구분</label>
-            <select class="form-select" id="celebCode">
-              <option value="ACT">배우</option>
-              <option value="SIN">가수</option>
-              <option value="UND">미확인</option>
+            <select class="form-select" id="celebCode" name="celebCode">
+              <option class="celebCodes" value="ACT">배우</option>
+              <option class="celebCodes" value="SIN">가수</option>
+              <option class="celebCodes" value="UND">미확인</option>
             </select>
           </div>
         </div>
@@ -55,15 +55,15 @@
             <label for="gender" class="form-label">성별</label>
             <div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" id="genderF">
+                <input class="form-check-input genders" type="radio" name="gender" id="genderF" value="F">
                 <label class="form-check-label" for="genderF">여성</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" id="genderM">
+                <input class="form-check-input genders" type="radio" name="gender" id="genderM" value="M">
                 <label class="form-check-label" for="genderM">남성</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" id="genderO" checked>
+                <input class="form-check-input genders" type="radio" name="gender" id="genderO" value="O">
                 <label class="form-check-label" for="genderO">기타</label>
               </div>
             </div>
@@ -130,21 +130,22 @@
             <input type="text" class="form-control" id="updated" readonly>
           </div>
         </div>
+        </form>  <!-- form id="formCelebDetails" -->
 
         <div class="row">
           <div class="col mx-2 mb-3 float-end">
             <div class="my-1 float-end">
-              <button class="btn btn-primary" id="updateCeleb">변경저장</button>
+              <button class="btn btn-outline-danger" id="deleteCeleb" onclick="deleteCeleb()">삭제</button>
+              <button class="btn btn-outline-primary" id="updateCelebDetails" onclick="updateCelebDetails()">업데이트</button>
             </div>
           </div>
         </div>
-        </form>  <!-- form id="formCelebDetails" -->
 
         <hr>
         <div class="row">
           <div class="col mx-2 mb-3">
             <label for="imageFiles" class="form-label">이미지 파일 업로드</label>
-            <input class="form-control" type="file" id="imageFiles" name="imageFiles" onchange="previewImages()" accept="image/*" multiple>
+            <input class="form-control" type="file" id="imageFiles" name="imageFiles" onchange="loadPreviews()" accept="image/*" multiple>
             <div class="my-1 float-end">
               <button class="btn btn-outline-secondary btn-sm" onclick="clearPreviews()">파일 삭제</button>
               <button class="btn btn-outline-secondary btn-sm" id="uploadFiles" onclick="uploadImages()" disabled>파일 업로드</button>
@@ -164,7 +165,7 @@
             <div class="accordion" id="accordionPanelsStayOpenExample">
               <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                  <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                  <button class="accordion-button collapsed" id="buttonCelebImages" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
                     셀럽 이미지
                   </button>
                 </h2>
@@ -188,22 +189,97 @@
   </div>
 </div>
 
+<!-- Script: 정보 변경/삭제 -->
 <script type="text/javascript">
-$('#formCelebDetails #birthDate').datepicker(datePickerDefaults);
+function deleteCeleb() {
+  var mcd = document.getElementById('modalCelebDetails');
+  var celebSeq = mcd.querySelector('.modal-body input#celebSeq').value;
+  var stageName = mcd.querySelector('.modal-body input#stageName').value;
 
-function previewImages() {
+  $.ajax({
+    url: '/celeb/delete/'+celebSeq,
+    type: 'delete',
+    dataType: 'json',
+    cache: false,
+    success: function(response) {
+      if (response.code == 'SUCCESS') {
+        alert('fn:deleteCeleb() | 삭제 완료:)');
+        location.href = '/celeb/list';
+      } else {
+        alert('fn:deleteCeleb() | 삭제 실패 | 메시지: '+response.message);
+      }
+    },
+    error: function(response) {
+      alert('fn:deleteCeleb() | 삭제 오류');
+    }
+  });
+
+};
+
+function updateCelebDetails() {
+  var mcd = document.getElementById('modalCelebDetails');
+  updatedData = {
+    celebSeq:    mcd.querySelector('.modal-body input#celebSeq').value,
+    celebCode:   mcd.querySelector('.modal-body select#celebCode').value,
+    stageName:   mcd.querySelector('.modal-body input#stageName').value,
+    stageNameEn: mcd.querySelector('.modal-body input#stageNameEn').value,
+    realName:    mcd.querySelector('.modal-body input#realName').value,
+    realNameEn:  mcd.querySelector('.modal-body input#realNameEn').value,
+    gender:      mcd.querySelector('.modal-body input[name="gender"]:checked').value,
+    birthDate:   mcd.querySelector('.modal-body input#birthDate').value,
+    debutYear:   mcd.querySelector('.modal-body input#debutYear').value,
+    country:     mcd.querySelector('.modal-body input#country').value,
+    countryEn:   mcd.querySelector('.modal-body input#countryEn').value,
+    state:       mcd.querySelector('.modal-body input#state').value,
+    city:        mcd.querySelector('.modal-body input#city').value,
+    height:      mcd.querySelector('.modal-body input#height').value,
+    weight:      mcd.querySelector('.modal-body input#weight').value,
+    company:     mcd.querySelector('.modal-body input#company').value,
+  };
+
+  $.ajax({
+      url: '/celeb/update/json',
+      type: 'post',
+      data: updatedData,
+      dataType: 'json',
+      success: function(response) {
+          console.log(response);
+
+          if (response.code == 'SUCCESS') {
+            alert('업데이트 완료:)');
+          } else {
+              alert(response.message);
+          }
+      }
+  });
+
+};
+</script>
+
+<!-- Script: 프리뷰 핸들링 -->
+<script type="text/javascript">
+function loadPreviews() {
+  // class 항목에 dynamicPreview 값이 포함된 element 추출
+  var previews = document.querySelectorAll('.dynamicPreview');
+  if(previews.length > 0) {
+    for (var i=0; i<previews.length; i++) {
+      console.log('fn:clearPreviews() | 이전 화면의 프리뷰 삭제 | div id:'+previews[i].id);
+      document.getElementById(previews[i].id).remove();
+    }
+  }
+
   var inputFile = $("input[name='imageFiles']"); // Getting the properties of file from file field
   var files = inputFile[0].files;
 
   if(files.length > 0) {
     for (var i=0; i<files.length; i++) {
       $("#previewImages").after(
-          '<div class="row dynamicPreview" id="dynamicPreview'+i+'">'
-          + '<div class="col mx-2 mb-3">'
-          + '<label for="dynamicPreview'+i+'" class="form-label">'+files[i].name+'</label>'
-          + '<img id="dynamicPreview'+i+'" src="'+URL.createObjectURL(files[i])+'" class="img-fluid" />'
-          + '</div>'
-          + '</div>'
+        '<div class="row dynamicPreview" id="dynamicPreview'+i+'">'
+        + '<div class="col mx-2 mb-3">'
+        + '<label for="dynamicPreview'+i+'" class="form-label text-break">'+files[i].name+'</label>'
+        + '<img id="dynamicPreview'+i+'" src="'+URL.createObjectURL(files[i])+'" class="img-fluid" />'
+        + '</div>'
+        + '</div>'
       );
     }
     document.getElementById('uploadFiles').removeAttribute("disabled");
@@ -229,6 +305,9 @@ function clearPreviews() {
 };
 
 function uploadImages() {
+  var $form = $('#formCelebDetails');
+  console.log('$form.serialize()'+$form.serialize());
+
   var refId = 'CELEB_'+document.getElementById('celebSeq').value;
   console.log('fn:uploadImages() | redId: '+refId);
 
@@ -236,36 +315,137 @@ function uploadImages() {
   var inputFiles = $("input[name='imageFiles']"); // Getting the properties of file from file field
   var files = inputFiles[0].files;
   if(files.length > 0) {
+    var uploadValidation = true;
     for (var i=0; i<files.length; i++) {
-      formData.append("uploadFiles", files[i]);
-    };
-
-    $.ajax({
-      url: '/image/save/'+refId,
-      type: 'post',
-      data: formData,
-      dataType: 'json',
-      processData: false,
-      contentType: false,
-      cache: false,
-      success: function(response) {
-         if (response.code == 'SUCCESS') {
-              alert('fn:uploadImages() | 업로드 완료:)');
-              clearPreviews();
-              loadImages(refId);
-          } else {
-              alert('fn:uploadImages() | 업로드 실패 | 메시지: '+response.message);
-          }
-      },
-      error: function(response) {
-        alert('fn:uploadImages() | 업로드 오류');
+      if (files[i].name.length > 200) {
+        uploadValidation = false;
+        alert('파일이름이 너-무 깁니다. 파일명:'+files[i].name);
+        break;
       }
-    });
+    }
+
+    if (uploadValidation == true) {
+      for (var i=0; i<files.length; i++) {
+        formData.append("uploadFiles", files[i]);
+      };
+
+      $.ajax({
+        url: '/image/save/'+refId,
+        type: 'post',
+        data: formData,
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function(response) {
+          if (response.code == 'SUCCESS') {
+            alert('fn:uploadImages() | 업로드 완료:)');
+            clearPreviews();
+            clearImages();
+            loadImages(refId);
+          } else {
+            alert('fn:uploadImages() | 업로드 실패 | 메시지: '+response.message);
+          }
+        },
+        error: function(response) {
+          alert('fn:uploadImages() | 업로드 오류');
+        }
+      });
+    }
   }
 };
 </script>
 
+<!-- Script: 이미지 핸들링 -->
 <script type="text/javascript">
+function clearImages() {
+  console.log('fn:clearImages()');
+
+  var loadedCelebImages = document.querySelectorAll('.loadedCelebImage');
+
+  if(loadedCelebImages.length > 0) {
+    for (var i=0; i<loadedCelebImages.length; i++) {
+      console.log('fn:clearImages() | 이전 화면의 이미지 삭제 | div id:'+loadedCelebImages[i].id);
+      document.getElementById(loadedCelebImages[i].id).remove();
+    }
+  }
+}
+
+function loadImages(refId) {
+  console.log('fn:loadImages(refId) | redId: '+refId);
+
+  $.ajax({
+    url: '/image/list/json?refId='+refId,
+    type: 'get',
+    data: '',
+    dataType: 'json',
+    cache: false
+  })
+  .done(function(response) {
+    console.log('fn:loadImages(refId) | 이미지 로드 성공');
+    if(response.length > 0) {
+      $.each(response, function(index, item) {
+        $("#celebImages").append(
+          '<div class="mx-1 mb-3 loadedCelebImage" id="loadedCelebImage'+index+'">'
+          + '<small>'
+          + '<ul class="list-unstyled mb-1 text-break">'
+          + '<li>- 파일이름: '+item.originalFilename+'</li>'
+          + '<li>- 파일크기: '+item.sizeByte+' bytes</li>'
+          + '<li><img id="celebImage'+index+'" src="'+item.resourcePath+item.uploadFilename+'" class="img-fluid" /></li>'
+          + '<li class="mt-1 mb-5"><div class="float-end">'
+          + '<button class="btn btn-outline-secondary btn-sm" id="deleteCelebImage'+index+'" onclick="deleteImage('+item.fileSeq+')">파일 삭제</button>'
+          + '</div></li>'
+          + '</ul>'
+          + '</small>'
+          + '</div>'
+        );
+      });
+    } else {
+      $("#celebImages").append(
+        '<div class="mx-1 mb-3 loadedCelebImage" id="loadedCelebImage">'
+        + '<label class="form-label">등록된 이미지가 없습니다.</label>'
+        + '</div>'
+      );
+    }
+  })
+  .fail(function(xhr, status, errorThrown) {
+    console.log('fn:loadImages(refId) | 이미지 로드 실패 | status: '+status);
+  });
+
+};
+
+function deleteImage(fileSeq) {
+  var refId = 'CELEB_'+document.getElementById('celebSeq').value;
+
+  $.ajax({
+    url: '/image/delete/'+fileSeq,
+    type: 'delete',
+    //data: formData,
+    dataType: 'json',
+    cache: false,
+    success: function(response) {
+      if (response.code == 'SUCCESS') {
+        alert('fn:deleteImage() | 삭제 완료:)');
+      } else {
+        alert('fn:deleteImage() | 삭제 실패 | 메시지: '+response.message);
+      }
+    },
+    error: function(response) {
+      alert('fn:deleteImage() | 삭제 오류');
+    },
+    complete: function(response) {
+      clearImages();
+      loadImages(refId);
+    }
+  });
+
+};
+</script>
+
+<!-- 스크립트: Modal-상세정보 초기 설정 -->
+<script type="text/javascript">
+$('#formCelebDetails #birthDate').datepicker(datePickerDefaults);
+
 // 상세정보 Modal 화면이 보이는 시점에서의 초기 설정
 var mcd = document.getElementById('modalCelebDetails');
 mcd.addEventListener('show.bs.modal', function (event) {
@@ -281,13 +461,38 @@ mcd.addEventListener('show.bs.modal', function (event) {
 
   // Set modal element value
   mcd.querySelector('.modal-body input#celebSeq').value =    extractCelebInfo(celebDetails, 'celebSeq');
-  //mcd.querySelector('.modal-body input#celebCode').value = extractCelebInfo(celebDetails, 'celebCode');
+
+  var celebCodeValue = extractCelebInfo(celebDetails, 'celebCode');
+  var celebCodeOptions = document.querySelectorAll('.celebCodes');
+  if(celebCodeOptions.length > 0) {
+    for (var i=0; i<celebCodeOptions.length; i++) {
+      if (celebCodeOptions[i].value == celebCodeValue) {
+        celebCodeOptions[i].selected = true;
+        break;
+      }
+    }
+  }
+
   mcd.querySelector('.modal-body input#stageName').value =   extractCelebInfo(celebDetails, 'stageName');
   mcd.querySelector('.modal-body input#stageNameEn').value = extractCelebInfo(celebDetails, 'stageNameEn');
   mcd.querySelector('.modal-body input#realName').value =    extractCelebInfo(celebDetails, 'realName');
   mcd.querySelector('.modal-body input#realNameEn').value =  extractCelebInfo(celebDetails, 'realNameEn');
-  //mcd.querySelector('.modal-body input#gender').value =    extractCelebInfo(celebDetails, 'gender');
-  mcd.querySelector('.modal-body input#birthDate').value =   extractCelebInfo(celebDetails, 'birthDate');
+
+  var genderValue = extractCelebInfo(celebDetails, 'gender');
+  var genderInputs = document.querySelectorAll('.genders');
+  if(genderInputs.length > 0) {
+    for (var i=0; i<genderInputs.length; i++) {
+      document.getElementById(genderInputs[i].id).removeAttribute("checked");
+    }
+    mcd.querySelector('.modal-body input#gender'+genderValue).checked = true;
+  }
+
+  var birthDateValue = extractCelebInfo(celebDetails, 'birthDate');
+  if (birthDateValue == 'null') {
+    birthDateValue = '';
+  }
+
+  mcd.querySelector('.modal-body input#birthDate').value =   birthDateValue;
   mcd.querySelector('.modal-body input#debutYear').value =   extractCelebInfo(celebDetails, 'debutYear');
   mcd.querySelector('.modal-body input#country').value =     extractCelebInfo(celebDetails, 'country');
   mcd.querySelector('.modal-body input#countryEn').value =   extractCelebInfo(celebDetails, 'countryEn');
@@ -301,8 +506,16 @@ mcd.addEventListener('show.bs.modal', function (event) {
   // 프리뷰 초기화
   clearPreviews()
 
+  // 이미지 아코디언 접기
+  var buttonCelebImages = mcd.querySelector('.modal-body button#buttonCelebImages');
+  buttonCelebImages.setAttribute("class", "accordion-button collapsed");
+  buttonCelebImages.setAttribute("aria-expanded", "false");
+  var divCelebImages = mcd.querySelector('.modal-body div#panelsStayOpen-collapseOne');
+  divCelebImages.setAttribute("class", "accordion-collapse collapse");
+
   // 이미지 로드
   var refId = 'CELEB_'+extractCelebInfo(celebDetails, 'celebSeq');
+  clearImages();
   loadImages(refId);
 });
 
@@ -312,55 +525,6 @@ function extractCelebInfo(raw, key) {
   tempRaw = tempRaw.substring(0, tempRaw.length-1)+",";
   var keyValue = tempRaw.substring(tempRaw.indexOf(keyEqual), tempRaw.indexOf(","));
   return keyValue.replace(keyEqual, "");
-};
-</script>
-
-<script type="text/javascript">
-function loadImages(refId) {
-  console.log('fn:loadImages(refId) | redId: '+refId);
-
-  var loadedCelebImages = document.querySelectorAll('.loadedCelebImage');
-
-  if(loadedCelebImages.length > 0) {
-    for (var i=0; i<loadedCelebImages.length; i++) {
-      console.log('fn:loadImages(refId) | 이전 화면의 이미지 삭제 | div id:'+loadedCelebImages[i].id);
-      document.getElementById(loadedCelebImages[i].id).remove();
-    }
-  }
-
-  $.ajax({
-    url: '/image/list/json?refId='+refId,
-    type: 'get',
-    data: '',
-    dataType: 'json',
-    cache: false
-  })
-  .done(function(response) {
-    console.log('fn:loadImages(refId) | 이미지 로드 성공');
-    if(response.length > 0) {
-      $.each(response, function(index, item) {
-        $("#celebImages").append(
-            '<div class="mx-1 mb-3 loadedCelebImage" id="loadedCelebImage'+index+'">'
-            + '<label class="form-label">'
-            +     item.originalFilename + ' | ' + item.sizeByte
-            + '</label>'
-            + '<img id="celebImage'+index+'" src="'+item.resourcePathFilename+'" class="img-fluid" />'
-            + '</div>'
-        );
-      });
-    } else {
-      $("#celebImages").append(
-          '<div class="mx-1 mb-3 loadedCelebImage" id="loadedCelebImage">'
-          + '<label class="form-label">등록된 셀럽 이미지가 없습니다.</label>'
-          + '</div>'
-      );
-    }
-  })
-  .fail(function(xhr, status, errorThrown) {
-    console.log('fn:loadImages(refId) | 이미지 로드 실패 | status: '+status);
-  });
-
-  //return false;
 };
 </script>
 
@@ -395,6 +559,7 @@ function loadImages(refId) {
   </div>
 </div>
 
+<!-- Script: Modal-추가정보 초기 설정 -->
 <script type="text/javascript">
 // 추가정보 Modal 화면이 보이는 시점에서의 초기 설정
 var mce = document.getElementById('modalCelebExt');

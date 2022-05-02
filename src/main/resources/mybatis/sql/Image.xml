@@ -5,21 +5,21 @@
 
 	<insert id="save" parameterType="kr.bespinlab.nivea.parameter.ImageUpdateParam" useGeneratedKeys="true" keyProperty="fileSeq">
 		INSERT INTO images(
-			ref_id
-			, original_filename
-			, upload_filename
-			, upload_path_filename
-			, resource_path_filename
-			, size_byte
-			, content_type
+		ref_id
+		, original_filename
+		, upload_filename
+		, upload_path
+		, resource_path
+		, size_byte
+		, content_type
 		) VALUES(
-			#{refId}
-			,#{originalFilename}
-			,#{uploadFilename}
-			,#{uploadPathFilename}
-			,#{resourcePathFilename}
-			,#{sizeByte}
-			,#{contentType}
+		#{refId}
+		,#{originalFilename}
+		,#{uploadFilename}
+		,#{uploadPath}
+		,#{resourcePath}
+		,#{sizeByte}
+		,#{contentType}
 		)
 	</insert>
 
@@ -29,11 +29,13 @@
 			, ref_id
 			, original_filename
 			, upload_filename
-			, upload_path_filename
-			, resource_path_filename
+			, upload_path
+			, resource_path
 			, size_byte
 			, content_type
-			, del_yn
+			, is_representative
+			, thumbnail_filename
+			, thumbnail_Path
 			, updated
 		FROM images
 		<where>
@@ -43,4 +45,45 @@
 		</where>
 		ORDER BY updated DESC
 	</select>
+
+	<select id="count" parameterType="int" resultType="int">
+		SELECT
+			COUNT(file_seq) AS count
+		FROM images
+		<where>
+			<if test="fileSeq > 0">
+				AND file_seq = #{fileSeq}
+			</if>
+		</where>
+	</select>
+
+	<select id="findByFileSeq" parameterType="int" resultType="kr.bespinlab.nivea.domain.Image">
+		SELECT
+		file_seq
+		, ref_id
+		, original_filename
+		, upload_filename
+		, upload_path
+		, resource_path
+		, size_byte
+		, content_type
+		, is_representative
+		, thumbnail_filename
+		, thumbnail_Path
+		, updated
+		FROM images
+		WHERE file_seq = #{fileSeq}
+		ORDER BY updated DESC
+	</select>
+
+	<update id="updateThumbnail" parameterType="kr.bespinlab.nivea.parameter.ThumbnailUpdateParam">
+		UPDATE images SET
+			thumbnail_filename  = #{thumbnailFilename}
+			, thumbnail_path    = #{thumbnailPath}
+		WHERE file_seq = #{fileSeq}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		DELETE FROM images WHERE file_seq = #{fileSeq}
+	</delete>
 </mapper>

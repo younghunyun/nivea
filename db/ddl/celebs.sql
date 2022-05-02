@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS celebs(
   , height        FLOAT         NULL
   , weight        FLOAT         NULL
   , company       VARCHAR(500)  NULL
+  , del_yn        CHAR(1)       NOT NULL DEFAULT 'N'
   , updated       DATETIME      NOT NULL DEFAULT NOW()
   , PRIMARY KEY(celeb_seq)
   , UNIQUE INDEX uindex_celeb_uid (celeb_code, celeb_seq)

@@ -79,13 +79,13 @@ public class WebConfiguration implements WebMvcConfigurer {
 		// local (윈도우 환경)
 		if (config().isLocal()) {
 			registry.addResourceHandler(resourcePattern).addResourceLocations(
-					"file:///" + config().getUploadFilePath()
+					"file:///" + config().getUploadServerPath()
 			);
 
 		// 리눅스 또는 유닉스 환경
 		} else {
 			registry.addResourceHandler(resourcePattern).addResourceLocations(
-					"file:" + config().getUploadFilePath()
+					"file:" + config().getUploadServerPath()
 			);
 		}
 

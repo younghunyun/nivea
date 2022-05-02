@@ -2,6 +2,7 @@ package kr.bespinlab.nivea.parameter;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
 
@@ -23,7 +24,9 @@ public class CelebUpdateParam {
 	@ApiModelProperty(name = "gender", value = "성별", dataType = "String", example = "M")
 	private String    gender;
 	@ApiModelProperty(name = "birthDate", value = "생년월일", dataType = "Date", example = "1970-01-04")
-	private Date      birthDate;
+//	@DateTimeFormat(pattern = "yyyy-MM-dd")
+//	private Date      birthDate;
+	private String    birthDate;
 	@ApiModelProperty(name = "debutYear", value = "데뷔년도", dataType = "String", example = "1997")
 	private String    debutYear;
 	@ApiModelProperty(name = "country", value = "국가", dataType = "String", example = "대한민국")

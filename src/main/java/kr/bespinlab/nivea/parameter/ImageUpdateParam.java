@@ -15,9 +15,12 @@ public class ImageUpdateParam {
     private String    refId;
     private String    originalFilename;
     private String    uploadFilename;
-    private String    uploadPathFilename;
-    private String    resourcePathFilename;
+    private String    uploadPath;
+    private String    resourcePath;
     private int       sizeByte;
     private String    contentType;
+//    private String    isRepresentative;
+//    private String    thumbnailFilename;
+//    private String    thumbnailPath;
 
 }

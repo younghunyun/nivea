@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html lang="kr">
@@ -60,7 +61,7 @@
         </li>
       </ul>
       <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value="${searchParam.keyword}">
         <button class="btn btn-outline-primary btn-sm" type="submit">Search</button>
       </form>
     </div>
@@ -85,8 +86,8 @@
   </thead>
   <tbody>
     <c:forEach var="celeb" items="${celebList}" varStatus="status">
-    <tr data-bs-toggle="modal" data-bs-target="#modalCelebDetails" data-bs-celebDetails="${celeb}">
-      <td scope="row"><image src="/image/no_image.png" style="width: 32px; object-fit: cover;"></td>
+    <tr data-bs-toggle="modal" data-bs-target="#modalCelebDetails" data-bs-celebDetails="${status.current}">
+      <th scope="row">${status.index}</td>
       <td>${celeb.celebSeq}</a></td>
       <td>${celeb.celebCode}</td>
       <td>${celeb.stageName}</td>
@@ -118,12 +119,12 @@
     <li class="page-item disabled">
     </c:otherwise>
     </c:choose>
-      <a class="page-link" href="./list?page=${pageNavParam.startPage-1}&size=${pageNavParam.contentsPerPage}">이전</a>
+      <a class="page-link" href="/celeb/list?page=${pageNavParam.startPage-1}&size=${pageNavParam.contentsPerPage}">이전</a>
     </li>
 
     <c:forEach var="i" begin="${pageNavParam.startPage}" end="${pageNavParam.endPage}">
     <li class="page-item">
-        <a class="page-link" href="./list?page=${i}&size=${pageNavParam.contentsPerPage}">${i}</a>
+        <a class="page-link" href="/celeb/list?page=${i}&size=${pageNavParam.contentsPerPage}">${i}</a>
     </li>
     </c:forEach>
 
@@ -136,7 +137,7 @@
     <li class="page-item disabled">
     </c:otherwise>
     </c:choose>
-      <a class="page-link" href="./list?page=${pageNavParam.endPage+1}&size=${pageNavParam.contentsPerPage}">다음</a>
+      <a class="page-link" href="/celeb/list?page=${pageNavParam.endPage+1}&size=${pageNavParam.contentsPerPage}">다음</a>
     </li>
   </ul>
 </nav>
@@ -155,7 +156,6 @@
 
 <!-- Modal: 상세정보 -->
 <jsp:include page="./details.jsp" />
-
 
 </body>
 </html>

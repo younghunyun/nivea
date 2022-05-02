@@ -5,10 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import kr.bespinlab.nivea.comm.BaseException;
 import kr.bespinlab.nivea.comm.BaseResponse;
 import kr.bespinlab.nivea.comm.BaseResponseCode;
-import kr.bespinlab.nivea.domain.Celeb;
 import kr.bespinlab.nivea.domain.Image;
-import kr.bespinlab.nivea.parameter.CelebPageParam;
-import kr.bespinlab.nivea.parameter.CelebSearchParam;
 import kr.bespinlab.nivea.service.ImageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Slf4j
@@ -54,6 +51,34 @@ public class ImageController {
         log.debug(">>>> ImageFileController | searchJson | imageList: {}", imageList.size());
         return imageList;
     }
+
+    @DeleteMapping("/delete/{fileSeq}")
+    @ResponseBody
+    public BaseResponse<Boolean> delete(@PathVariable("fileSeq") int fileSeq){
+        log.debug(">>>> ImageFileController | delete | fileSeq: {}", fileSeq);
+
+        boolean result = imageService.deleteImage(fileSeq);
+
+        return new BaseResponse<Boolean>(result);
+    }
+
+    @GetMapping("/thumbnail/make/{fileSeq}")
+    @ResponseBody
+    public BaseResponse<Boolean> makeThumbnail(
+            @PathVariable int fileSeq
+            , @RequestParam(required = false) String size
+            , HttpServletResponse response) {
+
+        Image uploadImage = imageService.findByFileSeq(fileSeq);
+
+        if (uploadImage == null) {
+            throw new BaseException(BaseResponseCode.NO_FILE, new String[]{"이미지 파일 SEQ="+fileSeq});
+        } else {
+            boolean result = imageService.makeThumbnail(uploadImage, size);
+            return new BaseResponse<Boolean>(result);
+        }
+    }
+
 }
 
 
