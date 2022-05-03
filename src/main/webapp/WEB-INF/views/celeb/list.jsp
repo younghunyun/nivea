@@ -87,7 +87,7 @@
   <tbody>
     <c:forEach var="celeb" items="${celebList}" varStatus="status">
     <tr data-bs-toggle="modal" data-bs-target="#modalCelebDetails" data-bs-celebDetails="${status.current}">
-      <th scope="row">${status.index}</td>
+      <th scope="row">{${status.index}+1}</td>
       <td>${celeb.celebSeq}</a></td>
       <td>${celeb.celebCode}</td>
       <td>${celeb.stageName}</td>
